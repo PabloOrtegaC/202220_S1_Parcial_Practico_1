@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import main.java.co.edu.uniandes.dse.parcialejemplo.entities.HabitacionEntity;
 import main.java.co.edu.uniandes.dse.parcialejemplo.entities.HotelEntity;
 import main.java.co.edu.uniandes.dse.parcialejemplo.exceptions.EntityNotFoundException;
@@ -21,26 +20,24 @@ import main.java.co.edu.uniandes.dse.parcialejemplo.repositories.HabitacionRepos
 import main.java.co.edu.uniandes.dse.parcialejemplo.repositories.HotelRepository;
 import main.java.co.edu.uniandes.dse.parcialejemplo.repositories.HabitacionRepository;
 
+
 @Slf4j
 @Service
-public class HotelService {
+public class HabitacionService {
 
 	@Autowired
-	HotelRepository hotelRepository;
+	HabitacionRepository habitacionRepository;
 	
 
 	@Transactional
-	public HotelEntity createHotel(HotelEntity hotel) throws IllegalOperationException {
-		log.info("Inicia proceso de creación del hotel");
+	public HabitacionEntity createHabitacion(HabitacionEntity habitacion) throws IllegalOperationException {
+		log.info("Inicia proceso de creación de una habitacion");
 		
-		if(hotel.getNombre()) {
-			throw new IllegalOperationException("Hotel ya existe");
+		if(habitacion.getIdentificacion() > habitacion.getCamas()) {
+			throw new IllegalOperationException("Id mayor que camas");
 	    }
-        if(hotel.getEstrellas()>5 || hotel.getEstrellas()<0 ) {
-			throw new IllegalOperationException("Numero de estrellas inconsistente");
-	    }
-		
-		return hotelRepository.save(hotel);
+     
+		return habitacionRepository.save(habitacion);
 	}
 
 }
